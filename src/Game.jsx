@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './App.css'
+import './Game.css'
 
 function Square({value, onBtnPress}) { 
   return (
@@ -12,6 +12,15 @@ function Board({mark , squares, onPlay}){ //setting up skeleton in this
  
   // const [squares , setSquares] = useState(Array(9).fill(null))
 
+  const winner = calc(squares)
+  let status;
+  if(winner){
+    status = "Winner: " + winner;
+  }
+  else {
+    status = "Next Playing: " + (mark?'X':'O');
+  }
+  
   function handleClick(i){
     if (squares[i] || calc(squares)) {
       return;
@@ -25,14 +34,6 @@ function Board({mark , squares, onPlay}){ //setting up skeleton in this
      }
      onPlay(newSquares)
     //  setMark(!mark)
-  }
-  const winner = calc(squares)
-  let status;
-  if(winner){
-    status = "Winner: " + winner;
-  }
-  else {
-    status = "Next Playing: " + (mark?'X':'O');
   }
   return (  
     <>
@@ -56,7 +57,7 @@ function Board({mark , squares, onPlay}){ //setting up skeleton in this
   )
 }
 
-export default function App(){
+export default function Game(){
   //const [mark,setMark] = useState(true)
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove,setCurrentMove] = useState(0);
